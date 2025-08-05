@@ -1,3 +1,12 @@
+const readline = require('readline')
+const rl = readline.createInterface({input: process.stdin, output: process.stdout})
+    
+function askQuestion(answer){
+    return new Promise((resolve) => {
+        rl.question(answer, resolve)
+    })
+}
+
 let tasks = []
 let taskIdCounter = 1;
 
@@ -10,20 +19,41 @@ const GetTomorrowDate = () => {
     tomorrow.setDate(tomorrow.getDate() + 1)
     return tomorrow.toISOString().split("T")[0]
 }
-const Menu = () => {
-    return prompt(`
-        Choose Operation
+const Menu = async() => {
+    console.log(`Choose Operation
         1. Create
         2. Read
         3. Update
-        4. Delete
-    `)
+        4. Delete`)
+
+const choice =  await askQuestion('Enter your Choice : ')
+    switch(choice.trim()){
+        case '1':
+            await createTask()
+            break;
+        case '2':
+            await readTask()
+            break;
+        case '3':
+            await updateTask()
+            break;
+        case '4':
+            await deleteTask()
+            break;
+        default:
+            console.log('Invalid operation')
+            rl.close()
+            return;
+    } 
+    Menu()   
 }
-const createTask = () => {
-    var taskName = prompt('Enter Task Name: ')
-    var taskDesc = prompt('Enter Task Description: ')
-    var start_date = prompt('Enter Starting Date: ')
-    var end_date = prompt('Enter Ending Date: ')
+
+const createTask = async () => {
+    let taskName =  await askQuestion('Enter Task Name: ')
+    let taskDesc =  await askQuestion('Enter Task desc: ')
+    let start_date = await askQuestion('Enter start date: ')
+    let end_date = await askQuestion('Enter end date: ')
+
     
     if(!start_date){
         start_date = GetTodayDate()
@@ -42,41 +72,41 @@ const createTask = () => {
         end_date
     }
     tasks.push(task)
-    alert(`Task created ! Id: ${task.id}`)
-    runTask()
-    readTask()
+    
 }
 
-const readTask = () => {
-    var id = parseInt(prompt('Enter your ID: '))
+const readTask = async () => {
+    const id =  parseInt(await askQuestion('Enter your id: '))
     const task = tasks.find((e) => e.id === id)
     if(task){
         console.log(`Task Name is: ${task.taskName},\nTask Description is: ${task.taskDesc},\nTask Start Date is: ${task.start_date},\nTask End Date is: ${task.end_date}`)
+    } else {
+        console.log('ID not found')
     }
 }
 
-const updateTask = () => {
-    const id = parseInt(prompt('Enter ID:'))
+const updateTask = async () => {
+    let id =  parseInt(await askQuestion('Enter your id: '))
     const task = tasks.find((e)=> e.id === id)
     
     if(task){
-       let newname = prompt('Enter new Task Name: ', task.taskName)
-       let newdesc = prompt('Enter new Task Description: ', task.taskDesc)
-       let new_start_date = prompt('Enter new Task Start Date: ', task.start_date)
-       let new_end_date = prompt('Enter new Task Name: ', task.end_date)
+        let newname =  await askQuestion('Enter new Task Name: ')
+        let newdesc =  await askQuestion('Enter new Task desc: ')
+        let new_start_date = await askQuestion('Enter new Start date: ')
+        let new_end_date = await askQuestion('Enter new End date: ')
        
        task.taskName = newname || task.taskName
        task.taskDesc = newdesc || task.taskDesc
        task.start_date = new_start_date || task.start_date
        task.end_date = new_end_date || task.end_date
-       alert('Task updated!')
+       console.log('Task updated!')
     } else {
-        alert('task id not found')
+        console.log('task id not found')
     }
     
 }
-const deleteTask = () => {
-    const id = parseInt(prompt('Enter ID:'))
+const deleteTask = async () => {
+    let id =  parseInt(await askQuestion('Enter your id: '))
     const index = tasks.findIndex((e)=> e.id === id)
     
     if(index != -1){
@@ -86,29 +116,4 @@ const deleteTask = () => {
         console.log('ID not found')
     }
 }
-
-const runTask = () => {
-    let choice;
-    do {
-        choice = Menu()
-        switch(choice){
-            case '1':
-                createTask()
-                break;
-            case '2':
-                readTask()
-                break;
-            case '3':
-                updateTask()
-                break;
-            case '4':
-                deleteTask()
-                break;
-            default:
-                console.log('Invalid operation')
-                break;
-        } 
-    } while(['1','2','3','4'].includes(choice))
-}
-runTask()
-
+Menu()
