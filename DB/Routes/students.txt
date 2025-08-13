@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "689adbef54161566155d8d4a",
+    "student_name": "yashvi",
+    "student_age": 25,
+    "student_course": "CSE",
+    "__v": 0
+  },
+  {
+    "_id": "689ae46dbe2ca7815e2593f2",
+    "student_name": "ayushi",
+    "student_age": 16,
+    "student_course": "IT",
+    "__v": 0
+  },
+  {
+    "_id": "689ae47eb44cdc0dc93f070c",
+    "student_name": "riya",
+    "student_age": 23,
+    "student_course": "AI-ML",
+    "__v": 0
+  },
+  {
+    "_id": "689ae488b44cdc0dc93f070e",
+    "student_name": "dhruvee",
+    "student_age": 26,
+    "student_course": "AI-ML",
+    "__v": 0
+  },
+  {
+    "_id": "689ae496b44cdc0dc93f0710",
+    "student_name": "kartik",
+    "student_age": 39,
+    "student_course": "AI-ML",
+    "__v": 0
+  },
+  {
+    "_id": "689ae4a9b44cdc0dc93f0712",
+    "student_name": "kriti",
+    "student_age": 35,
+    "student_course": "CSE",
+    "__v": 0
+  },
+  {
+    "_id": "689ae4c7b44cdc0dc93f0714",
+    "student_name": "abc",
+    "student_age": 31,
+    "student_course": "CSE",
+    "__v": 0
+  },
+  {
+    "_id": "689afadb1d54d4575889db55",
+    "student_name": "xyz",
+    "student_age": 20,
+    "student_course": "IT",
+    "__v": 0
+  }
+]
